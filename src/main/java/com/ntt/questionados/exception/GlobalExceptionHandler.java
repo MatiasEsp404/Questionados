@@ -29,6 +29,22 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
 	}
 
+	@ExceptionHandler(value = UserAlreadyExistException.class)
+	protected ResponseEntity<ErrorResponse> handleUserAlreadyExistException(UserAlreadyExistException e) {
+		ErrorResponse errorResponse = buildErrorResponse(HttpStatus.CONFLICT, e.getMessage(),
+				"The server could not complete the user registration because "
+						+ "the email address entered is already in use.");
+		return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+	}
+
+	@ExceptionHandler(value = InvalidCredentialsException.class)
+	protected ResponseEntity<ErrorResponse> handleInvalidCredentialsException(InvalidCredentialsException e) {
+		ErrorResponse errorResponse = buildErrorResponse(HttpStatus.UNAUTHORIZED, e.getMessage(),
+				"The server cannot return a response due to invalid credentials.");
+		return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
+
+	}
+
 	private ErrorResponse buildErrorResponse(HttpStatus httpStatus, String message, List<String> moreInfo) {
 		return ErrorResponse.builder().statusCode(httpStatus.value()).message(message).moreInfo(moreInfo).build();
 	}

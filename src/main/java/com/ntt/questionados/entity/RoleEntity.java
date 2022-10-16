@@ -19,18 +19,15 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "CATEGORIES")
-public class CategoryEntity {
+@Table(name = "ROLES")
+public class RoleEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "CATEGORY_ID")
+	@Column(name = "ROLE_ID")
 	private Long id;
 
-	@Column(nullable = false, unique = true, name = "NAME")
+	@Column(name = "NAME", nullable = false)
 	private String name;
-
-	@Column(name = "DESCRIPTION")
-	private String description;
 
 }
