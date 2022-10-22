@@ -14,13 +14,21 @@ import com.ntt.questionados.entity.UserEntity;
 public class UserMapper {
 
 	public UserEntity toUserEntity(RegisterRequest registerRequest) {
-		return UserEntity.builder().username(registerRequest.getUsername()).email(registerRequest.getEmail())
-				.password(registerRequest.getPassword()).build();
+		return UserEntity.builder()
+				.firstName(registerRequest.getFirstName())
+				.lastName(registerRequest.getLastName())
+				.email(registerRequest.getEmail())
+				.password(registerRequest.getPassword())
+				.build();
 	}
 
 	public RegisterResponse toRegisterResponse(UserEntity userEntity) {
-		return RegisterResponse.builder().id(userEntity.getId()).username(userEntity.getEmail())
-				.email(userEntity.getEmail()).build();
+		return RegisterResponse.builder()
+				.id(userEntity.getId())
+				.firstName(userEntity.getFirstName())
+				.lastName(userEntity.getLastName())
+				.email(userEntity.getEmail())
+				.build();
 	}
 
 	public List<UserResponse> toListUserResponse(List<UserEntity> listUserEntities) {
@@ -34,7 +42,8 @@ public class UserMapper {
 	public UserResponse toUserResponse(UserEntity userEntity) {
 		return UserResponse.builder()
 				.id(userEntity.getId())
-				.username(userEntity.getUsername())
+				.firstName(userEntity.getFirstName())
+				.lastName(userEntity.getLastName())
 				.email(userEntity.getEmail())
 				.role(userEntity.getRole().getName())
 				.build();

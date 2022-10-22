@@ -1,4 +1,4 @@
-package com.ntt.questionados.dto.request.validation;
+package com.ntt.questionados.config.validation;
 
 import java.util.regex.Pattern;
 import javax.validation.ConstraintValidator;

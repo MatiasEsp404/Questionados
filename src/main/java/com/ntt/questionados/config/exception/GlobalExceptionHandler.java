@@ -1,5 +1,8 @@
-package com.ntt.questionados.exception;
+package com.ntt.questionados.config.exception;
 
+import com.ntt.questionados.config.exception.runtime.EntityNotFoundException;
+import com.ntt.questionados.config.exception.runtime.InvalidCredentialsException;
+import com.ntt.questionados.config.exception.runtime.UserAlreadyExistException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -10,7 +13,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.ntt.questionados.dto.response.ErrorResponse;
+import com.ntt.questionados.config.security.common.ErrorResponse;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {

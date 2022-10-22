@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.ntt.questionados.dto.request.validation.AlphanumericWithWhiteSpaces;
+import com.ntt.questionados.config.validation.AlphanumericWithWhiteSpaces;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,7 +22,11 @@ public class RegisterRequest {
 
 	@NotNull(message = "The first name must not be null")
 	@AlphanumericWithWhiteSpaces(message = "First name can contain letters and spaces")
-	private String username;
+	private String firstName;
+
+	@NotNull(message = "The last name must not be null")
+	@AlphanumericWithWhiteSpaces(message = "Last name can contain letters and spaces")
+	private String lastName;
 
 	@NotNull(message = "The email must not be null")
 	@Email(message = "The email has invalid format.")

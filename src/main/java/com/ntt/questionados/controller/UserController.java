@@ -1,5 +1,6 @@
 package com.ntt.questionados.controller;
 
+import com.ntt.questionados.config.security.common.Paths;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,7 @@ import com.ntt.questionados.dto.response.ListUsersResponse;
 import com.ntt.questionados.service.abstraction.IGetUserService;
 
 @RestController
-@RequestMapping("users")
+@RequestMapping(path = Paths.USERS)
 public class UserController {
 
 	@Autowired

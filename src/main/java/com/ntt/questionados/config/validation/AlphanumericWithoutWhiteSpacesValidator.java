@@ -1,22 +1,24 @@
-package com.ntt.questionados.dto.request.validation;
+package com.ntt.questionados.config.validation;
 
 import java.util.regex.Pattern;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import org.springframework.util.StringUtils;
 
-public class AlphanumericWithWhiteSpacesValidator implements ConstraintValidator<AlphanumericWithWhiteSpaces, String> {
+public class AlphanumericWithoutWhiteSpacesValidator
+		implements ConstraintValidator<AlphanumericWithoutWhiteSpaces, String> {
 
-	private static final String REGEXP = "^[\\w\\s]+$";
+	private static final String REGEXP_ALPHANUMERIC_WITHOUT_WHITE_SPACES = "^[\\w.]+$";
 
 	@Override
-	public void initialize(AlphanumericWithWhiteSpaces constraintAnnotation) {
+	public void initialize(AlphanumericWithoutWhiteSpaces constraintAnnotation) {
 		ConstraintValidator.super.initialize(constraintAnnotation);
 	}
 
 	@Override
 	public boolean isValid(String body, ConstraintValidatorContext constraintValidatorContext) {
-		Pattern pattern = Pattern.compile(REGEXP);
+		Pattern pattern = Pattern.compile(REGEXP_ALPHANUMERIC_WITHOUT_WHITE_SPACES);
 		return StringUtils.hasText(body) && pattern.matcher(body).matches();
 	}
+
 }

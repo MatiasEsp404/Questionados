@@ -2,7 +2,7 @@ package com.ntt.questionados.dto.request;
 
 import javax.validation.constraints.NotEmpty;
 
-import com.ntt.questionados.dto.request.validation.CharactersWithWhiteSpaces;
+import com.ntt.questionados.config.validation.CharactersWithWhiteSpaces;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

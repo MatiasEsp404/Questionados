@@ -1,4 +1,4 @@
-package com.ntt.questionados.dto.request.validation;
+package com.ntt.questionados.config.validation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -11,11 +11,10 @@ import javax.validation.Payload;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Constraint(validatedBy = CharactersWithWhitespacesValidator.class)
-public @interface CharactersWithWhiteSpaces {
+@Constraint(validatedBy = AlphanumericWithWhiteSpacesValidator.class)
+public @interface AlphanumericWithWhiteSpaces {
 
-	String message() default "{com.ntt.questionados.dto.request.validation.CharactersWithWhiteSpaces.message}";
+	String message() default "{com.ntt.questionados.config.validation.AlphanumericWithWhiteSpaces.message}";
 	Class<?>[] groups() default {};
 	Class<? extends Payload>[] payload() default {};
-
 }

@@ -1,4 +1,6 @@
-package com.ntt.questionados.dto.response;
+package com.ntt.questionados.config.security.common;
+
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,12 +13,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RegisterResponse {
+public class ErrorResponse {
 
-	private Long id;
-	private String firstName;
-	private String lastName;
-	private String email;
-	private String token;
-
+	private int statusCode;
+	private String message;
+	private List<String> moreInfo;
+	
 }

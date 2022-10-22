@@ -1,5 +1,6 @@
 package com.ntt.questionados.config.security;
 
+import com.ntt.questionados.config.security.common.Paths;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
@@ -29,12 +30,18 @@ import com.ntt.questionados.config.security.filter.JwtRequestFilter;
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	private static final String ID_PATH = "{id:[\\d+]}";
-	private static final String PAGE_QUERY_PARAM = "page={page:[\\d+]}&size={size:[\\d+]}";
+	private static final String ID_PATH = "{id:^\\d+$}";
+	private static final String PAGE_QUERY_PARAM = "?page={page:[\\d+]}&size={size:[\\d+]}";
 
-	private static final String CATEGORIES_URL = "/categories";
-	private static final String CATEGORIES_ID_URL = "/categories/" + ID_PATH;
-	private static final String CATEGORIES_PAGING_URL = "/categories?" + PAGE_QUERY_PARAM;
+	private static final String CATEGORIES_URL = Paths.CATEGORIES;
+	private static final String CATEGORIES_ID_URL = Paths.CATEGORIES + ID_PATH;
+	private static final String CATEGORIES_PAGING_URL = Paths.CATEGORIES + PAGE_QUERY_PARAM;
+
+	private static final String AUTH_REGISTER_URL = Paths.AUTH + "/register";
+	private static final String AUTH_LOGIN_URL = Paths.AUTH + "/login";
+	private static final String AUTH_ME_URL = Paths.AUTH + "/me";
+
+	private static final String USERS_URL = Paths.USERS;
 
 	@Autowired
 	private JwtRequestFilter jwtRequestFilter;
@@ -72,12 +79,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.and().authorizeRequests()
 
 				.antMatchers(HttpMethod.POST, CATEGORIES_URL).hasAnyRole(Role.ADMIN.name())
-				.antMatchers(HttpMethod.GET, CATEGORIES_URL).hasAnyRole(Role.ADMIN.name())
-				.antMatchers(HttpMethod.GET, CATEGORIES_PAGING_URL).hasAnyRole(Role.ADMIN.name())
-				.antMatchers(HttpMethod.GET, CATEGORIES_ID_URL).hasAnyRole(Role.ADMIN.name())
+				.antMatchers(HttpMethod.GET, CATEGORIES_URL).hasAnyRole(Role.USER.name(), Role.ADMIN.name())
+				.antMatchers(HttpMethod.GET, CATEGORIES_PAGING_URL).hasAnyRole(Role.USER.name(), Role.ADMIN.name())
+				.antMatchers(HttpMethod.GET, CATEGORIES_ID_URL).hasAnyRole(Role.USER.name(), Role.ADMIN.name())
 				.antMatchers(HttpMethod.PUT, CATEGORIES_ID_URL).hasAnyRole(Role.ADMIN.name())
 				.antMatchers(HttpMethod.PATCH, CATEGORIES_ID_URL).hasAnyRole(Role.ADMIN.name())
 				.antMatchers(HttpMethod.DELETE, CATEGORIES_ID_URL).hasAnyRole(Role.ADMIN.name())
+
+				.antMatchers(HttpMethod.POST, AUTH_REGISTER_URL).permitAll()
+				.antMatchers(HttpMethod.POST, AUTH_LOGIN_URL).permitAll()
+				.antMatchers(HttpMethod.GET, AUTH_ME_URL).hasAnyRole(Role.USER.name(), Role.ADMIN.name())
+
+				.antMatchers(HttpMethod.GET, USERS_URL).hasAnyRole(Role.ADMIN.name())
 
 				.anyRequest().authenticated().and()
 				.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class).exceptionHandling()

@@ -1,4 +1,4 @@
-package com.ntt.questionados.dto.request.validation;
+package com.ntt.questionados.config.validation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -14,7 +14,7 @@ import javax.validation.Payload;
 @Constraint(validatedBy = AlphanumericWithoutWhiteSpacesValidator.class)
 public @interface AlphanumericWithoutWhiteSpaces {
 
-	String message() default "{com.ntt.questionados.dto.request.validation.AlphanumericWithoutWhiteSpaces.message}";
+	String message() default "{com.ntt.questionados.config.validation.AlphanumericWithoutWhiteSpaces.message}";
 	Class<?>[] groups() default {};
 	Class<? extends Payload>[] payload() default {};
 

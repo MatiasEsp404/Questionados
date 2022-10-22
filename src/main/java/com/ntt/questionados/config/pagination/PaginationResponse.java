@@ -1,6 +1,4 @@
-package com.ntt.questionados.dto.response;
-
-import java.util.List;
+package com.ntt.questionados.config.pagination;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,10 +11,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ErrorResponse {
+public class PaginationResponse {
 
-	private int statusCode;
-	private String message;
-	private List<String> moreInfo;
-	
+  private int page;
+  private int totalPages;
+  private int size;
+
 }

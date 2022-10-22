@@ -1,14 +1,15 @@
-package com.ntt.questionados.config.security;
+package com.ntt.questionados.config.security.bean;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
-public class PasswordEncoder {
+public class MyPasswordEncoder {
 
 	@Bean
-	public org.springframework.security.crypto.password.PasswordEncoder encoder() {
+	public PasswordEncoder encoder() {
 		return new BCryptPasswordEncoder();
 	}
 

@@ -1,12 +1,15 @@
 package com.ntt.questionados.controller;
 
+import com.ntt.questionados.config.security.common.Paths;
+import com.ntt.questionados.dto.response.ListCategoriesResponse;
+import com.ntt.questionados.config.pagination.PaginatedResultsRetrieved;
 import java.net.URI;
 
-import java.util.List;
-
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,8 +31,9 @@ import com.ntt.questionados.service.abstraction.ICreateCategoryService;
 import com.ntt.questionados.service.abstraction.IDeleteCategoryService;
 import com.ntt.questionados.service.abstraction.IGetCategoryService;
 import com.ntt.questionados.service.abstraction.IUpdateCategoryService;
+import org.springframework.web.util.UriComponentsBuilder;
 
-@RequestMapping("/api/categories")
+@RequestMapping(path = Paths.CATEGORIES)
 @RestController
 public class CategoryController {
 
@@ -45,44 +49,83 @@ public class CategoryController {
 	@Autowired
 	private IDeleteCategoryService deleteCategoryService;
 
-	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<CategoryResponse> create(@Valid @RequestBody CreateCategoryRequest createCategoryRequest) {
+	@Autowired
+	private PaginatedResultsRetrieved paginatedResultsRetrieved;
+
+	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE,
+			consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<CategoryResponse> create(
+			@Valid @RequestBody CreateCategoryRequest createCategoryRequest) {
+
 		CategoryResponse categoryResponse = createCategoryService.create(createCategoryRequest);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(categoryResponse.getId()).toUri();
 		return ResponseEntity.created(location).body(categoryResponse);
+
 	}
 
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<CategoryResponse>> getAll() {
-		List<CategoryResponse> categoryResponses = getCategoryService.getAll();
-		return ResponseEntity.ok(categoryResponses);
-	}
+//	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+//	public ResponseEntity<List<CategoryResponse>> getAll() {
+//
+//		List<CategoryResponse> categoryResponses = getCategoryService.getAll();
+//		return ResponseEntity.ok(categoryResponses);
+//
+//	}
 
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<CategoryResponse> getBy(@PathVariable Long id) {
+
 		CategoryResponse categoryResponse = getCategoryService.getBy(id);
 		return ResponseEntity.ok(categoryResponse);
+
 	}
 
-	@PutMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<CategoryResponse> update(@Valid @RequestBody UpdateCategoryRequest updateCategoryRequest,
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ListCategoriesResponse> listActiveCategories(
+			Pageable pageable,
+			UriComponentsBuilder uriBuilder,
+			HttpServletResponse response) {
+
+		ListCategoriesResponse listCategoriesResponse =
+				getCategoryService.paginatedCategories(pageable);
+
+		paginatedResultsRetrieved.addLinkHeaderOnPagedResourceRetrieval(
+				uriBuilder, response, "/categories",
+				listCategoriesResponse.getPage(),
+				listCategoriesResponse.getTotalPages(),
+				listCategoriesResponse.getSize());
+		return ResponseEntity.ok().body(listCategoriesResponse);
+
+	}
+
+	@PutMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE,
+			consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<CategoryResponse> update(
+			@Valid @RequestBody UpdateCategoryRequest updateCategoryRequest,
 			@PathVariable Long id) {
+
 		CategoryResponse categoryResponse = updateCategoryService.update(updateCategoryRequest, id);
 		return ResponseEntity.ok(categoryResponse);
+
 	}
 
-	@PatchMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<CategoryResponse> patch(@Valid @RequestBody PatchCategoryRequest patchCategoryRequest,
+	@PatchMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE,
+			consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<CategoryResponse> patch(
+			@Valid @RequestBody PatchCategoryRequest patchCategoryRequest,
 			@PathVariable Long id) {
+
 		CategoryResponse categoryResponse = updateCategoryService.patch(patchCategoryRequest, id);
 		return ResponseEntity.ok(categoryResponse);
+
 	}
 
 	@DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
+
 		deleteCategoryService.delete(id);
 		return ResponseEntity.noContent().build();
+
 	}
 
 }

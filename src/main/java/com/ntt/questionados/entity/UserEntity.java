@@ -24,7 +24,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@SuppressWarnings("serial")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -39,13 +38,16 @@ public class UserEntity implements UserDetails {
 	@Column(name = "USER_ID")
 	private Long id;
 	
-	@Column(name = "USERNAME", nullable = false)
-	private String username;
+	@Column(nullable = false)
+	private String firstName;
+
+	@Column(nullable = false)
+	private String lastName;
 	
-	@Column(name = "EMAIL", nullable = false, unique = true)
+	@Column(nullable = false, unique = true)
 	private String email;
 	
-	@Column(name = "PASSWORD", nullable = false)
+	@Column(nullable = false)
 	private String password;
 	
 	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
@@ -58,6 +60,11 @@ public class UserEntity implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return List.of(new SimpleGrantedAuthority(role.getName()));
+	}
+
+	@Override
+	public String getUsername() {
+		return email;
 	}
 
 	@Override

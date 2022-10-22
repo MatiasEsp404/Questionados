@@ -1,11 +1,15 @@
 package com.ntt.questionados.service;
 
+import com.ntt.questionados.dto.response.ListCategoriesResponse;
+import com.ntt.questionados.config.pagination.GenericSetPagination;
 import java.util.List;
 import java.util.Optional;
 
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.ntt.questionados.dto.request.CreateCategoryRequest;
@@ -13,7 +17,7 @@ import com.ntt.questionados.dto.request.PatchCategoryRequest;
 import com.ntt.questionados.dto.request.UpdateCategoryRequest;
 import com.ntt.questionados.dto.response.CategoryResponse;
 import com.ntt.questionados.entity.CategoryEntity;
-import com.ntt.questionados.exception.EntityNotFoundException;
+import com.ntt.questionados.config.exception.runtime.EntityNotFoundException;
 import com.ntt.questionados.mapper.CategoryMapper;
 import com.ntt.questionados.mapper.updater.CategoryUpdater;
 import com.ntt.questionados.repository.ICategoryRepository;
@@ -23,7 +27,8 @@ import com.ntt.questionados.service.abstraction.IGetCategoryService;
 import com.ntt.questionados.service.abstraction.IUpdateCategoryService;
 
 @Service
-public class CategoryService implements ICreateCategoryService, IGetCategoryService, IUpdateCategoryService, IDeleteCategoryService {
+public class CategoryService extends GenericSetPagination<CategoryEntity> implements
+		ICreateCategoryService, IGetCategoryService, IUpdateCategoryService, IDeleteCategoryService {
 
 	@Autowired
 	private ICategoryRepository categoryRepository;
@@ -41,15 +46,24 @@ public class CategoryService implements ICreateCategoryService, IGetCategoryServ
 		return categoryMapper.toCategoryResponse(categoryEntity);
 	}
 
-	@Override
-	public List<CategoryResponse> getAll() {
-		List<CategoryEntity> categoryEntities = categoryRepository.findAll();
-		return categoryMapper.toListCategoryResponse(categoryEntities);
-	}
+//	@Override
+//	public List<CategoryResponse> getAll() {
+//		List<CategoryEntity> categoryEntities = categoryRepository.findAll();
+//		return categoryMapper.toListCategoryResponse(categoryEntities);
+//	}
 
 	@Override
 	public CategoryResponse getBy(Long id) {
 		return categoryMapper.toCategoryResponse(findById(id));
+	}
+
+	@Override
+	public ListCategoriesResponse paginatedCategories(Pageable pageable) {
+		Page<CategoryEntity> page = categoryRepository.findAllByOrderByIdAsc(pageable);
+		ListCategoriesResponse listCategoriesResponse = new ListCategoriesResponse();
+		listCategoriesResponse.setCategories(categoryMapper.toListCategoryResponse(page.getContent()));
+		setPagination(listCategoriesResponse, page);
+		return listCategoriesResponse;
 	}
 
 	@Override

@@ -19,7 +19,6 @@ import com.ntt.questionados.service.abstraction.IGetUserService;
 import lombok.AllArgsConstructor;
 
 @Service
-@AllArgsConstructor
 public class UserService implements UserDetailsService, IGetUserService {
 
 	@Autowired

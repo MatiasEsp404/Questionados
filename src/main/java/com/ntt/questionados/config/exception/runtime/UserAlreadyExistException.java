@@ -1,4 +1,4 @@
-package com.ntt.questionados.exception;
+package com.ntt.questionados.config.exception.runtime;
 
 @SuppressWarnings("serial")
 public class UserAlreadyExistException extends RuntimeException {

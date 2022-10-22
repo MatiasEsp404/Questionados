@@ -1,8 +1,8 @@
 package com.ntt.questionados.config.security.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ntt.questionados.dto.response.ErrorResponse;
 
+import com.ntt.questionados.config.security.common.ErrorResponse;
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
@@ -10,8 +10,8 @@ import org.springframework.http.MediaType;
 
 public class ResponseUtils {
 
-	private ResponseUtils() {
-	}
+//	private ResponseUtils() {
+//	}
 
 	public static void setCustomForbiddenResponse(HttpServletResponse response) throws IOException {
 		response.setStatus(HttpStatus.FORBIDDEN.value());
