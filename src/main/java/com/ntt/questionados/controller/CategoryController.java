@@ -64,14 +64,6 @@ public class CategoryController {
 
 	}
 
-//	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-//	public ResponseEntity<List<CategoryResponse>> getAll() {
-//
-//		List<CategoryResponse> categoryResponses = getCategoryService.getAll();
-//		return ResponseEntity.ok(categoryResponses);
-//
-//	}
-
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<CategoryResponse> getBy(@PathVariable Long id) {
 

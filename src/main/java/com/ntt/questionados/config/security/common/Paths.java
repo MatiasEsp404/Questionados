@@ -7,4 +7,7 @@ public abstract class Paths {
   public static final String AUTH = API + "/auth";
   public static final String USERS = API + "/users";
 
+  public static final String QUESTIONS = API + "/questions";
+
+  public static final String RESPONSES = API + "/responses";
 }

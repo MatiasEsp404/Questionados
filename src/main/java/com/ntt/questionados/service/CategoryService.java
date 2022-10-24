@@ -46,12 +46,6 @@ public class CategoryService extends GenericSetPagination<CategoryEntity> implem
 		return categoryMapper.toCategoryResponse(categoryEntity);
 	}
 
-//	@Override
-//	public List<CategoryResponse> getAll() {
-//		List<CategoryEntity> categoryEntities = categoryRepository.findAll();
-//		return categoryMapper.toListCategoryResponse(categoryEntities);
-//	}
-
 	@Override
 	public CategoryResponse getBy(Long id) {
 		return categoryMapper.toCategoryResponse(findById(id));

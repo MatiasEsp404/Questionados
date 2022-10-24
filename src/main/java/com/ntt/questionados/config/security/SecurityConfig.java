@@ -37,6 +37,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private static final String CATEGORIES_ID_URL = Paths.CATEGORIES + ID_PATH;
 	private static final String CATEGORIES_PAGING_URL = Paths.CATEGORIES + PAGE_QUERY_PARAM;
 
+	private static final String QUESTIONS_URL = Paths.QUESTIONS;
+	private static final String QUESTIONS_ID_URL = Paths.QUESTIONS + ID_PATH;
+	private static final String QUESTIONS_PAGING_URL = Paths.QUESTIONS + PAGE_QUERY_PARAM;
+
+	private static final String RESPONSES_URL = Paths.RESPONSES;
+	private static final String RESPONSES_ID_URL = Paths.RESPONSES + ID_PATH;
+	private static final String RESPONSES_PAGING_URL = Paths.RESPONSES + PAGE_QUERY_PARAM;
+
 	private static final String AUTH_REGISTER_URL = Paths.AUTH + "/register";
 	private static final String AUTH_LOGIN_URL = Paths.AUTH + "/login";
 	private static final String AUTH_ME_URL = Paths.AUTH + "/me";
@@ -80,11 +88,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 				.antMatchers(HttpMethod.POST, CATEGORIES_URL).hasAnyRole(Role.ADMIN.name())
 				.antMatchers(HttpMethod.GET, CATEGORIES_URL).hasAnyRole(Role.USER.name(), Role.ADMIN.name())
-				.antMatchers(HttpMethod.GET, CATEGORIES_PAGING_URL).hasAnyRole(Role.USER.name(), Role.ADMIN.name())
 				.antMatchers(HttpMethod.GET, CATEGORIES_ID_URL).hasAnyRole(Role.USER.name(), Role.ADMIN.name())
+				.antMatchers(HttpMethod.GET, CATEGORIES_PAGING_URL).hasAnyRole(Role.USER.name(), Role.ADMIN.name())
 				.antMatchers(HttpMethod.PUT, CATEGORIES_ID_URL).hasAnyRole(Role.ADMIN.name())
 				.antMatchers(HttpMethod.PATCH, CATEGORIES_ID_URL).hasAnyRole(Role.ADMIN.name())
 				.antMatchers(HttpMethod.DELETE, CATEGORIES_ID_URL).hasAnyRole(Role.ADMIN.name())
+
+				.antMatchers(HttpMethod.POST, QUESTIONS_URL).hasAnyRole(Role.ADMIN.name())
+				.antMatchers(HttpMethod.GET, QUESTIONS_URL).hasAnyRole(Role.USER.name(), Role.ADMIN.name())
+				.antMatchers(HttpMethod.GET, QUESTIONS_ID_URL).hasAnyRole(Role.USER.name(), Role.ADMIN.name())
+				.antMatchers(HttpMethod.GET, QUESTIONS_PAGING_URL).hasAnyRole(Role.USER.name(), Role.ADMIN.name())
+				.antMatchers(HttpMethod.PUT, QUESTIONS_ID_URL).hasAnyRole(Role.ADMIN.name())
+				.antMatchers(HttpMethod.PATCH, QUESTIONS_ID_URL).hasAnyRole(Role.ADMIN.name())
+				.antMatchers(HttpMethod.DELETE, QUESTIONS_ID_URL).hasAnyRole(Role.ADMIN.name())
+
+				.antMatchers(HttpMethod.POST, RESPONSES_URL).hasAnyRole(Role.ADMIN.name())
+				.antMatchers(HttpMethod.GET, RESPONSES_URL).hasAnyRole(Role.USER.name(), Role.ADMIN.name())
+				.antMatchers(HttpMethod.GET, RESPONSES_ID_URL).hasAnyRole(Role.USER.name(), Role.ADMIN.name())
+				.antMatchers(HttpMethod.GET, RESPONSES_PAGING_URL).hasAnyRole(Role.USER.name(), Role.ADMIN.name())
+				.antMatchers(HttpMethod.PUT, RESPONSES_ID_URL).hasAnyRole(Role.ADMIN.name())
+				.antMatchers(HttpMethod.PATCH, RESPONSES_ID_URL).hasAnyRole(Role.ADMIN.name())
+				.antMatchers(HttpMethod.DELETE, RESPONSES_ID_URL).hasAnyRole(Role.ADMIN.name())
 
 				.antMatchers(HttpMethod.POST, AUTH_REGISTER_URL).permitAll()
 				.antMatchers(HttpMethod.POST, AUTH_LOGIN_URL).permitAll()
