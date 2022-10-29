@@ -6,10 +6,9 @@ import com.ntt.questionados.dto.response.ResponseResponse;
 import com.ntt.questionados.entity.QuestionEntity;
 import com.ntt.questionados.entity.ResponseEntity;
 import com.ntt.questionados.repository.IQuestionRepository;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,8 +18,8 @@ public class ResponseMapper {
   @Autowired
   private IQuestionRepository questionRepository;
 
-  public Set<ResponseResponse> toListResponseResponse(Set<ResponseEntity> entities) {
-    Set<ResponseResponse> responseResponses = new HashSet<>();
+  public List<ResponseResponse> toListResponseResponse(List<ResponseEntity> entities) {
+    List<ResponseResponse> responseResponses = new ArrayList<>();
     for (ResponseEntity response : entities) {
       responseResponses.add(toResponseResponse(response));
     }
@@ -35,8 +34,8 @@ public class ResponseMapper {
         .build();
   }
 
-  public Set<ResponseEntity> toListResponseEntity(List<CreateResponseRequest> responses) {
-    Set<ResponseEntity> responseEntities = new HashSet<>();
+  public List<ResponseEntity> toListResponseEntity(List<CreateResponseRequest> responses) {
+    List<ResponseEntity> responseEntities = new ArrayList<>();
     for (CreateResponseRequest response : responses) {
       responseEntities.add(toResponseEntity(response));
     }

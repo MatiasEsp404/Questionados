@@ -10,8 +10,11 @@ import com.ntt.questionados.entity.CategoryEntity;
 public class CategoryUpdater {
 
 	public CategoryEntity toCategoryEntity(UpdateCategoryRequest updateCategoryRequest, Long id) {
-		return CategoryEntity.builder().id(id).name(updateCategoryRequest.getName())
-				.description(updateCategoryRequest.getDescription()).build();
+		return CategoryEntity.builder()
+				.id(id) // TODO ¿Esto esta bien? :S
+				.name(updateCategoryRequest.getName())
+				.description(updateCategoryRequest.getDescription())
+				.build();
 	}
 
 	public CategoryEntity toCategoryEntity(PatchCategoryRequest patchCategoryRequest, CategoryEntity categoryEntity) {

@@ -1,6 +1,7 @@
 package com.ntt.questionados.dto.response;
 
-import java.util.Set;
+import com.ntt.questionados.config.pagination.PaginationResponse;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,8 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ListResponseResponse {
+public class ListResponseResponse extends PaginationResponse {
 
-  private Set<ResponseResponse> responses;
+  private List<ResponseResponse> responses;
 
 }

@@ -73,7 +73,7 @@ public class CategoryController {
 	}
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ListCategoriesResponse> listActiveCategories(
+	public ResponseEntity<ListCategoriesResponse> paginateCategories(
 			Pageable pageable,
 			UriComponentsBuilder uriBuilder,
 			HttpServletResponse response) {
@@ -82,7 +82,7 @@ public class CategoryController {
 				getCategoryService.paginatedCategories(pageable);
 
 		paginatedResultsRetrieved.addLinkHeaderOnPagedResourceRetrieval(
-				uriBuilder, response, "/categories",
+				uriBuilder, response, Paths.CATEGORIES,
 				listCategoriesResponse.getPage(),
 				listCategoriesResponse.getTotalPages(),
 				listCategoriesResponse.getSize());
