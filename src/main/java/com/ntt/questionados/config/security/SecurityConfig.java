@@ -57,6 +57,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private static final String QUESTIONADOS_CHECK_RESPONSE_URL = Paths.QUESTIONADOS
 			+ Paths.CHECK_RESPONSE;
 
+	private static final String DOCUMENTATION_PATHS = "/api/docs/**";
+
 	@Autowired
 	private JwtRequestFilter jwtRequestFilter;
 
@@ -91,6 +93,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().cors().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 				.and().authorizeRequests()
+
+				.antMatchers(DOCUMENTATION_PATHS)
+				.permitAll()
 
 				.antMatchers(HttpMethod.POST, CATEGORIES_URL).hasAnyRole(Role.ADMIN.name())
 				.antMatchers(HttpMethod.GET, CATEGORIES_URL).hasAnyRole(Role.USER.name(), Role.ADMIN.name())
