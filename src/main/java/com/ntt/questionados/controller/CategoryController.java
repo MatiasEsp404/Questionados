@@ -61,22 +61,17 @@ public class CategoryController {
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(categoryResponse.getId()).toUri();
 		return ResponseEntity.created(location).body(categoryResponse);
-
 	}
 
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<CategoryResponse> getBy(@PathVariable Long id) {
-
 		CategoryResponse categoryResponse = getCategoryService.getBy(id);
 		return ResponseEntity.ok(categoryResponse);
-
 	}
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ListCategoriesResponse> paginateCategories(
-			Pageable pageable,
-			UriComponentsBuilder uriBuilder,
-			HttpServletResponse response) {
+			Pageable pageable, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
 
 		ListCategoriesResponse listCategoriesResponse =
 				getCategoryService.paginatedCategories(pageable);
@@ -87,7 +82,6 @@ public class CategoryController {
 				listCategoriesResponse.getTotalPages(),
 				listCategoriesResponse.getSize());
 		return ResponseEntity.ok().body(listCategoriesResponse);
-
 	}
 
 	@PutMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE,
@@ -98,7 +92,6 @@ public class CategoryController {
 
 		CategoryResponse categoryResponse = updateCategoryService.update(updateCategoryRequest, id);
 		return ResponseEntity.ok(categoryResponse);
-
 	}
 
 	@PatchMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE,
@@ -109,15 +102,12 @@ public class CategoryController {
 
 		CategoryResponse categoryResponse = updateCategoryService.patch(patchCategoryRequest, id);
 		return ResponseEntity.ok(categoryResponse);
-
 	}
 
 	@DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
-
 		deleteCategoryService.delete(id);
 		return ResponseEntity.noContent().build();
-
 	}
 
 }

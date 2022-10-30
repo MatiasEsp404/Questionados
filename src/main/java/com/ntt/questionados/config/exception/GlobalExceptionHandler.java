@@ -3,6 +3,7 @@ package com.ntt.questionados.config.exception;
 import com.ntt.questionados.config.exception.runtime.EntityNotFoundException;
 import com.ntt.questionados.config.exception.runtime.InvalidCredentialsException;
 import com.ntt.questionados.config.exception.runtime.UserAlreadyExistException;
+import com.ntt.questionados.config.exception.runtime.WrongResponseException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,7 +46,13 @@ public class GlobalExceptionHandler {
 		ErrorResponse errorResponse = buildErrorResponse(HttpStatus.UNAUTHORIZED, e.getMessage(),
 				"The server cannot return a response due to invalid credentials.");
 		return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
+	}
 
+	@ExceptionHandler(value = WrongResponseException.class)
+	protected ResponseEntity<ErrorResponse> handleWrongResponseException(WrongResponseException e) {
+		ErrorResponse errorResponse = buildErrorResponse(HttpStatus.NOT_ACCEPTABLE, e.getMessage(),
+				"The response does not belong to the question.");
+		return new ResponseEntity<>(errorResponse, HttpStatus.NOT_ACCEPTABLE);
 	}
 
 	private ErrorResponse buildErrorResponse(HttpStatus httpStatus, String message, List<String> moreInfo) {

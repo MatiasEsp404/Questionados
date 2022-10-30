@@ -8,6 +8,10 @@ public abstract class Paths {
   public static final String USERS = API + "/users";
 
   public static final String QUESTIONS = API + "/questions";
-
   public static final String RESPONSES = API + "/responses";
+
+  public static final String QUESTIONADOS = API + "/questionados";
+  public static final String NEXT_QUESTION = "/next";
+  public static final String CHECK_RESPONSE = "/verifications";
+
 }

@@ -6,6 +6,8 @@ import com.ntt.questionados.dto.response.QuestionResponse;
 import com.ntt.questionados.entity.CategoryEntity;
 import com.ntt.questionados.entity.QuestionEntity;
 import com.ntt.questionados.repository.ICategoryRepository;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -40,5 +42,13 @@ public class QuestionMapper {
       throw new EntityNotFoundException("Category not found.");
     }
     return categoryEntity.get();
+  }
+
+  public List<QuestionResponse> toListQuestionResponse(List<QuestionEntity> entities) {
+    List<QuestionResponse> responses = new ArrayList<>();
+    for(QuestionEntity entity : entities) {
+      responses.add(toQuestionResponse(entity));
+    }
+    return responses;
   }
 }

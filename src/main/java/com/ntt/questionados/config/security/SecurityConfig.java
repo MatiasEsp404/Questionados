@@ -51,6 +51,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private static final String USERS_URL = Paths.USERS;
 
+	private static final String QUESTIONADOS_NEXT_QUESTION_URL = Paths.QUESTIONADOS
+			+ Paths.NEXT_QUESTION;
+
+	private static final String QUESTIONADOS_CHECK_RESPONSE_URL = Paths.QUESTIONADOS
+			+ Paths.CHECK_RESPONSE;
+
 	@Autowired
 	private JwtRequestFilter jwtRequestFilter;
 
@@ -110,10 +116,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.PATCH, RESPONSES_ID_URL).hasAnyRole(Role.ADMIN.name())
 				.antMatchers(HttpMethod.DELETE, RESPONSES_ID_URL).hasAnyRole(Role.ADMIN.name())
 
+				.antMatchers(HttpMethod.GET, QUESTIONADOS_NEXT_QUESTION_URL).permitAll()
+				.antMatchers(HttpMethod.POST, QUESTIONADOS_CHECK_RESPONSE_URL).permitAll()
+
 				.antMatchers(HttpMethod.POST, AUTH_REGISTER_URL).permitAll()
 				.antMatchers(HttpMethod.POST, AUTH_LOGIN_URL).permitAll()
 				.antMatchers(HttpMethod.GET, AUTH_ME_URL).hasAnyRole(Role.USER.name(), Role.ADMIN.name())
-
 				.antMatchers(HttpMethod.GET, USERS_URL).hasAnyRole(Role.ADMIN.name())
 
 				.anyRequest().authenticated().and()

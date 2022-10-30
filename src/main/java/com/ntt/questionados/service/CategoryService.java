@@ -80,10 +80,9 @@ public class CategoryService extends GenericSetPagination<CategoryEntity> implem
 
   @Override
   public void delete(Long id) {
-    if (categoryRepository.existsById(id)) {
-      categoryRepository.deleteById(id);
-    } else {
+    if (!categoryRepository.existsById(id)) {
       throw new EntityNotFoundException("Category not found.");
     }
+    categoryRepository.deleteById(id);
   }
 }

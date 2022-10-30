@@ -89,10 +89,9 @@ public class ResponseService extends GenericSetPagination<ResponseEntity> implem
 
   @Override
   public void delete(Long id) {
-    if (responseRepository.existsById(id)) {
-      responseRepository.deleteById(id);
-    } else {
+    if (!responseRepository.existsById(id)) {
       throw new EntityNotFoundException("Category not found.");
     }
+    responseRepository.deleteById(id);
   }
 }
