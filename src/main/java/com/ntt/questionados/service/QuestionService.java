@@ -7,7 +7,6 @@ import com.ntt.questionados.dto.request.PatchQuestionRequest;
 import com.ntt.questionados.dto.request.UpdateQuestionRequest;
 import com.ntt.questionados.dto.response.ListQuestionResponse;
 import com.ntt.questionados.dto.response.QuestionResponse;
-import com.ntt.questionados.entity.CategoryEntity;
 import com.ntt.questionados.entity.QuestionEntity;
 import com.ntt.questionados.mapper.QuestionMapper;
 import com.ntt.questionados.mapper.updater.QuestionUpdater;

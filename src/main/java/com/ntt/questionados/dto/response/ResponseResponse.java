@@ -1,6 +1,5 @@
 package com.ntt.questionados.dto.response;
 
-import com.ntt.questionados.entity.QuestionEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

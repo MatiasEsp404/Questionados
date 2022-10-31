@@ -16,8 +16,6 @@ import com.ntt.questionados.mapper.UserMapper;
 import com.ntt.questionados.repository.IUserRepository;
 import com.ntt.questionados.service.abstraction.IGetUserService;
 
-import lombok.AllArgsConstructor;
-
 @Service
 public class UserService implements UserDetailsService, IGetUserService {
 

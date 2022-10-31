@@ -1,8 +1,6 @@
 package com.ntt.questionados.dto.request;
 
-import com.ntt.questionados.config.validation.AlphanumericWithWhiteSpaces;
 import com.ntt.questionados.config.validation.CharactersWithWhiteSpaces;
-import java.util.List;
 import javax.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

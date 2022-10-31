@@ -9,7 +9,6 @@ import com.ntt.questionados.entity.QuestionEntity;
 import com.ntt.questionados.entity.ResponseEntity;
 import com.ntt.questionados.mapper.QuestionMapper;
 import com.ntt.questionados.mapper.ResponseMapper;
-import com.ntt.questionados.repository.ICategoryRepository;
 import com.ntt.questionados.repository.IQuestionRepository;
 import com.ntt.questionados.repository.IResponseRepository;
 import com.ntt.questionados.service.abstraction.IQuestionadosService;
@@ -27,9 +26,6 @@ public class QuestionadosService implements IQuestionadosService {
 
   @Autowired
   private IResponseRepository responseRepository;
-
-  @Autowired
-  private ICategoryRepository categoryRepository;
 
   @Autowired
   private QuestionMapper questionMapper;
